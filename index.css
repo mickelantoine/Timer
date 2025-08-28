@@ -32,23 +32,79 @@ body {
 
 #root {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rem 1.5rem 2rem; /* Adjusted for fixed header */
   min-height: 100vh;
   position: relative;
   z-index: 2;
   padding-bottom: 140px; /* Space for the fixed ad footer */
 }
 
-h2, h3 {
+h1, h2, h3 {
   font-weight: 500;
   margin: 0;
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
+h1 { font-size: 1.5rem; }
 h2 { font-size: 1.25rem; }
 h3 { font-size: 1.125rem; }
+
+/* --- App Header --- */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 60;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(13, 17, 32, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.app-header h1 {
+  color: var(--text-primary);
+}
+
+.app-header nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  position: relative;
+}
+.nav-btn:hover {
+  color: var(--text-primary);
+  background-color: rgba(255,255,255,0.1);
+}
+.nav-btn.active {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
 
 /* --- Animated Background --- */
 .background-shapes {
@@ -335,6 +391,99 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 .edit-form { width: 100%; display: flex; flex-direction: column; gap: 0.75rem; }
 .edit-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
 .edit-actions button { font-size: 0.9rem; padding: 0.5rem 1rem; }
+
+/* --- Blog Section --- */
+.blog-main {
+  width: 100%;
+  max-width: 900px;
+}
+
+.blog-container {
+  width: 100%;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-list,
+.blog-post-full {
+  list-style: none;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 8px; /* Space for scrollbar */
+}
+
+.blog-post-list::-webkit-scrollbar,
+.blog-post-full::-webkit-scrollbar {
+  width: 6px;
+}
+.blog-post-list::-webkit-scrollbar-thumb,
+.blog-post-full::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+.blog-post-list::-webkit-scrollbar-thumb:hover,
+.blog-post-full::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+.blog-post-list::-webkit-scrollbar-track,
+.blog-post-full::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.blog-post-preview {
+  padding: 1.5rem 0.5rem;
+  border-top: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.blog-post-preview:first-child { border-top: none; }
+.blog-post-preview:hover { background-color: rgba(255,255,255, 0.05); }
+
+.blog-post-preview h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  transition: color 0.2s ease;
+}
+.blog-post-preview:hover h3 {
+  color: var(--primary-color);
+}
+.blog-post-preview p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.blog-post-full {
+  padding: 2rem;
+}
+.back-btn {
+  position: sticky;
+  top: 1.5rem;
+  z-index: 10;
+  margin-bottom: 2rem;
+  align-self: flex-start; /* Ensure it doesn't stretch */
+  background: rgba(25, 31, 56, 0.7); /* More opaque background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.post-meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.post-content p, .post-content li {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+.post-content strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.post-content ol {
+  padding-left: 20px;
+}
 
 /* Modal */
 .modal-overlay {
